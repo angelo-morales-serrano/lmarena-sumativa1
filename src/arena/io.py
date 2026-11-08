@@ -47,7 +47,7 @@ def download_dataset(raw_dir: Path = RAW_DIR, repo_id: str = REPO_ID) -> list[Pa
 def write_checksums(paths: list[Path], raw_dir: Path = RAW_DIR) -> Path:
     """Write ``CHECKSUMS.txt`` with one ``<sha256>  <relative path>`` line per file."""
     raw_dir = Path(raw_dir)
-    lines = [f"{sha256_of(p)}  {Path(p).relative_to(raw_dir)}" for p in sorted(paths)]
+    lines = [f"{sha256_of(p)}  {Path(p).relative_to(raw_dir).as_posix()}" for p in sorted(paths)]
     out = raw_dir / CHECKSUMS_NAME
     out.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return out
